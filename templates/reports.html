@@ -1,0 +1,263 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 class="page-title mb-4">📊 Reports Dashboard</h2>
+
+<div class="mb-4">
+    <a href="/export_excel" class="btn btn-success">
+        📥 Export to Excel
+    </a>
+</div>
+
+<!-- Statistics Cards -->
+
+<div class="row">
+
+    <div class="col-md-4 mb-3">
+        <div class="stat-card blue text-center">
+            <h2>{{ total_students }}</h2>
+            <p>Total Students</p>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+        <div class="stat-card green text-center">
+            <h2>{{ male_students }}</h2>
+            <p>Male Students</p>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+        <div class="stat-card orange text-center">
+            <h2>{{ female_students }}</h2>
+            <p>Female Students</p>
+        </div>
+    </div>
+
+</div>
+
+<!-- Department Report -->
+
+<div class="card-box mt-4">
+
+    <h4 class="mb-3">Department-wise Report</h4>
+
+    <table class="table table-bordered table-hover">
+
+        <thead class="table-dark">
+
+            <tr>
+                <th>Department</th>
+                <th>Total Students</th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% for dept in departments %}
+
+            <tr>
+                <td>{{ dept.department }}</td>
+                <td>{{ dept.total }}</td>
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<!-- Year Report -->
+
+<div class="card-box mt-4">
+
+    <h4 class="mb-3">Year-wise Report</h4>
+
+    <table class="table table-bordered table-hover">
+
+        <thead class="table-dark">
+
+            <tr>
+                <th>Year</th>
+                <th>Total Students</th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% for y in years %}
+
+            <tr>
+                <td>{{ y.year }}</td>
+                <td>{{ y.total }}</td>
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<!-- Charts -->
+
+<div class="row mt-5">
+
+    <div class="col-lg-8">
+
+        <div class="card-box">
+
+            <h4 class="mb-4">📊 Department-wise Students</h4>
+
+            <div style="height:350px;">
+            <canvas id="departmentChart"></canvas>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-4">
+
+        <div class="card-box">
+
+            <h4 class="mb-4">🥧 Gender Distribution</h4>
+
+            <canvas id="genderChart"></canvas>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+window.onload = function(){
+
+    // Department Chart
+
+    const deptCtx = document.getElementById("departmentChart");
+
+    if(deptCtx){
+
+        new Chart(deptCtx,{
+
+            type:"bar",
+
+            data:{
+
+                labels: {{ department_names | tojson }},
+
+                datasets:[{
+
+                    label:"Students",
+
+                    data: {{ department_counts | tojson }},
+
+                    backgroundColor:[
+                        "#4F46E5",
+                        "#10B981",
+                        "#F59E0B",
+                        "#EF4444",
+                        "#06B6D4",
+                        "#8B5CF6"
+                    ],
+
+                    borderRadius:10
+
+                }]
+
+            },
+
+            options:{
+
+                responsive:true,
+
+                maintainAspectRatio:false,
+
+                plugins:{
+                    legend:{
+                        display:false
+                    }
+                },
+
+                scales:{
+                    y:{
+                        beginAtZero:true
+                    }
+                }
+
+            }
+
+        });
+
+    }
+
+    // Gender Chart
+
+    const genderCtx = document.getElementById("genderChart");
+
+    if(genderCtx){
+
+        new Chart(genderCtx,{
+
+            type:"pie",
+
+            data:{
+
+                labels:["Male","Female"],
+
+                datasets:[{
+
+                    data:[
+                        {{ male_students }},
+                        {{ female_students }}
+                    ],
+
+                    backgroundColor:[
+                        "#3B82F6",
+                        "#EC4899"
+                    ]
+
+                }]
+
+            },
+
+            options:{
+
+    responsive:true,
+
+    maintainAspectRatio:true,
+
+    aspectRatio:2,
+
+    plugins:{
+        legend:{
+            display:false
+        }
+    },
+
+    scales:{
+        y:{
+            beginAtZero:true
+        }
+    }
+
+}
+
+        });
+
+    }
+
+}
+
+</script>
+
+{% endblock %}

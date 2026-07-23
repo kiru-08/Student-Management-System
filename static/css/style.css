@@ -1,0 +1,425 @@
+/* Google Font */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#e2edf8;
+}
+
+/* ================= Sidebar ================= */
+
+.sidebar{
+
+    position:fixed;
+
+    width:260px;
+
+    height:100vh;
+
+    background:linear-gradient(180deg,#0f172a,#c1cef1);
+
+    color:white;
+
+    padding-top:30px;
+
+    box-shadow:5px 0 20px rgba(0,0,0,.2);
+
+}
+
+.sidebar h3{
+
+    text-align:center;
+
+    margin-bottom:40px;
+
+    font-size:28px;
+
+    font-weight:700;
+
+}
+
+.sidebar a{
+
+    display:block;
+
+    color:white;
+
+    text-decoration:none;
+
+    padding:16px 30px;
+
+    transition:.3s;
+
+    font-size:17px;
+
+}
+
+.sidebar a:hover{
+
+    background:rgba(255,255,255,.15);
+
+    padding-left:40px;
+
+}
+
+/* ================= Main Content ================= */
+
+.content{
+
+    margin-left:260px;
+
+    padding:35px;
+
+}
+
+/* ================= Heading ================= */
+
+.page-title{
+
+    font-size:34px;
+
+    font-weight:700;
+
+    color:#0f172a;
+
+    margin-bottom:25px;
+
+}
+
+/* ================= Cards ================= */
+
+.card-box{
+    background:white;
+    border-radius:20px;
+    padding:35px;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.card-box:hover{
+
+    transform:translateY(-6px);
+
+}
+
+/* ================= Buttons ================= */
+
+.btn-primary{
+
+    background:#53b7e2;
+
+    border:none;
+
+}
+
+.btn-success{
+
+    background:#10b981;
+
+    border:none;
+
+}
+
+.btn-warning{
+
+    color:white;
+
+}
+
+.btn{
+
+    border-radius:10px;
+
+    padding:10px 18px;
+
+}
+
+/* ================= Table ================= */
+
+.table{
+
+    border-radius:15px;
+
+    overflow:hidden;
+
+    background:white;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+}
+
+.table thead{
+
+    background:#1e3a8a;
+
+    color:white;
+
+}
+
+.table tbody tr:hover{
+
+    background:#eef6ff;
+
+}
+
+/* ================= Forms ================= */
+
+.form-control,.form-select{
+
+    border-radius:10px;
+
+    padding:12px;
+
+}
+
+label{
+
+    font-weight:600;
+
+    margin-bottom:5px;
+
+}
+
+/* ================= Dashboard Cards ================= */
+
+.stat-card{
+
+    border-radius:18px;
+
+    color:white;
+
+    padding:25px;
+
+    text-align:center;
+
+    margin-bottom:20px;
+
+}
+
+.blue{
+
+    background:linear-gradient(45deg,#2563eb,#3b82f6);
+
+}
+
+.green{
+
+    background:linear-gradient(45deg,#059669,#10b981);
+
+}
+
+.orange{
+
+    background:linear-gradient(45deg,#d97706,#f59e0b);
+
+}
+
+.purple{
+
+    background:linear-gradient(45deg,#7c3aed,#8b5cf6);
+
+}
+
+.stat-card h2{
+
+    font-size:38px;
+
+    font-weight:700;
+
+}
+
+.stat-card p{
+
+    margin-top:10px;
+
+    font-size:18px;
+
+}
+
+/* ================= Responsive ================= */
+
+@media(max-width:768px){
+
+.sidebar{
+
+    width:100%;
+
+    height:auto;
+
+    position:relative;
+
+}
+
+.content{
+
+    margin-left:0;
+
+}
+
+}
+/* Search Box */
+
+#searchInput{
+
+    border-radius:12px;
+
+    border:2px solid #2563eb;
+
+}
+
+/* Action Buttons */
+
+.btn-warning{
+
+    background:#f59e0b;
+
+    color:white;
+
+}
+
+.btn-danger{
+
+    background:#ef4444;
+
+}
+
+.btn-sm{
+
+    border-radius:8px;
+
+    padding:6px 12px;
+
+}
+
+/* Table */
+
+.table td{
+
+    vertical-align:middle;
+
+}
+
+/* ================= Login Page ================= */
+
+.login-body{
+
+    background:linear-gradient(135deg,#2563eb,#0f172a);
+
+    height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+.login-card{
+
+    width:420px;
+
+    background:white;
+
+    padding:40px;
+
+    border-radius:20px;
+
+    box-shadow:0 15px 40px rgba(0,0,0,.3);
+
+}
+
+.login-card h2{
+
+    color:#1e3a8a;
+
+    font-weight:700;
+
+}
+
+.login-card label{
+
+    font-weight:600;
+
+}
+
+.login-card .form-control{
+
+    height:50px;
+
+    border-radius:10px;
+
+}
+
+.login-card .btn{
+
+    height:50px;
+
+    border-radius:10px;
+
+    font-size:18px;
+
+    font-weight:600;
+
+}
+/* ================= ADD STUDENT PAGE ================= */
+
+.page-header h2{
+    font-weight:700;
+    color:#1E3A8A;
+}
+
+.page-header p{
+    color:#6b7280;
+}
+
+.section-title{
+    color:#2563EB;
+    font-size:22px;
+    font-weight:600;
+    margin-bottom:20px;
+}
+
+.card-box{
+
+    background:#fff;
+
+    border-radius:18px;
+
+    padding:35px;
+
+    box-shadow:0 10px 35px rgba(0,0,0,.08);
+
+}
+
+.form-control,
+.form-select{
+
+    border-radius:12px;
+
+    padding:12px;
+
+    border:1px solid #dbe4f0;
+
+}
+
+.form-control:focus,
+.form-select:focus{
+
+    border-color:#2563EB;
+
+    box-shadow:0 0 10px rgba(37,99,235,.25);
+
+}
+
+.btn{
+
+    border-radius:10px;
+
+    font-weight:600;
+
+}
