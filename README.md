@@ -27,9 +27,27 @@ A responsive Student Management System developed using Flask, Python, MySQL, Boo
 - Chart.js
 - OpenPyXL
 
-## 📷 Screenshots
+## 📷 Project Screenshots
 
-(Add screenshots here)
+### 🔐 Login Page
+
+![Login](static/images/login.png)
+
+### 📊 Dashboard
+
+![Dashboard](static/images/dashboard.png)
+
+### 👨‍🎓 Student List
+
+![Student List](static/images/student_list.png)
+
+### ➕ Add Student Form
+
+![Add Student Form](static/images/add_students_form.png)
+
+### 📈 Reports
+
+![Reports](static/images/report.png)
 
 ## ▶️ Installation
 
