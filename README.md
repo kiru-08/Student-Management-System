@@ -46,4 +46,4 @@ python app.py
 
 LinkedIn: (https://www.linkedin.com/in/kiran-saravade)
 
-GitHub: https://github.com/Kiran Saravade
+GitHub: https://github.com/kiru-08
