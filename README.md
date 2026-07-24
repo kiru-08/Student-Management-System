@@ -29,25 +29,43 @@ A responsive Student Management System developed using Flask, Python, MySQL, Boo
 
 ## 📷 Project Screenshots
 
-### 🔐 Login Page
-
+## 🔐 Login Page
 ![Login](static/images/login.png)
 
-### 📊 Dashboard
+---
 
+## 📊 Admin Dashboard
 ![Dashboard](static/images/dashboard.png)
 
-### 👨‍🎓 Student List
+---
 
-![Student List](static/images/student_list.png)
-
-### ➕ Add Student Form
-
+## ➕ Add Student Form
 ![Add Student Form](static/images/add_students_form.png)
 
-### 📈 Reports
+---
 
+## 👨‍🎓 Student List
+![Student List](static/images/student_list.png)
+
+---
+
+## 📈 Reports Dashboard
 ![Reports](static/images/report.png)
+
+---
+
+## 🔑 Forgot Password
+![Forgot Password](static/images/Forget_Password.png)
+
+---
+
+## 👨‍🏫 Teacher Dashboard
+![Teacher Dashboard](static/images/teacher_dashboard.png)
+
+---
+
+## 👨‍🏫 Teacher - View Students
+![Teacher View Students](static/images/teacher_students_view.png)
 
 ## ▶️ Installation
 
