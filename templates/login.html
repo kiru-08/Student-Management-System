@@ -19,30 +19,91 @@
 
 <div class="login-card">
 
-    <h2 class="text-center mb-4">🎓 Student Management System</h2>
+    <h2 class="text-center mb-2">🎓 Student Management System</h2>
+
+    <p class="text-center text-muted mb-4">
+        Login to continue
+    </p>
 
     <form method="POST">
 
+        <!-- Login As -->
+
         <div class="mb-3">
 
-            <label>Username</label>
+            <label class="form-label fw-bold">
+                Login As <span class="text-danger">*</span>
+            </label>
+
+            <div class="d-flex gap-4 mt-2">
+
+                <div class="form-check">
+
+                    <input class="form-check-input"
+                           type="radio"
+                           name="role"
+                           id="admin"
+                           value="admin"
+                           checked>
+
+                    <label class="form-check-label" for="admin">
+
+                        👨‍💼 Admin
+
+                    </label>
+
+                </div>
+
+                <div class="form-check">
+
+                    <input class="form-check-input"
+                           type="radio"
+                           name="role"
+                           id="teacher"
+                           value="teacher">
+
+                    <label class="form-check-label" for="teacher">
+
+                        👩‍🏫 Teacher
+
+                    </label>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Username -->
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Username <span class="text-danger">*</span>
+            </label>
 
             <input
                 type="text"
                 name="username"
                 class="form-control"
+                placeholder="Enter Username"
                 required>
 
         </div>
 
+        <!-- Password -->
+
         <div class="mb-3">
 
-            <label>Password</label>
+            <label class="form-label">
+                Password <span class="text-danger">*</span>
+            </label>
 
             <input
                 type="password"
                 name="password"
                 class="form-control"
+                placeholder="Enter Password"
                 required>
 
         </div>
@@ -57,11 +118,21 @@
 
         {% endif %}
 
-        <button class="btn btn-primary w-100">
+        <button type="submit" class="btn btn-primary w-100">
 
-            Login
+            🔐 Login
 
         </button>
+
+        <div class="text-center mt-3">
+
+            <a href="/forgot_password" class="text-decoration-none">
+
+                Forgot Password?
+
+            </a>
+
+        </div>
 
     </form>
 

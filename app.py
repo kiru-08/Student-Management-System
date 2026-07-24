@@ -1,11 +1,11 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session, send_file
 from database import cursor, db
 from openpyxl import Workbook
-from flask import send_file
 import os
 
 
 app = Flask(__name__)
+app.secret_key = "student_management_secret"
 
 # ===================== LOGIN =====================
 
@@ -14,26 +14,113 @@ def login():
 
     if request.method == 'POST':
 
+        role = request.form['role']
         username = request.form['username']
         password = request.form['password']
 
-        sql = "SELECT * FROM admin WHERE username=%s AND password=%s"
-        values = (username, password)
+        # ================= ADMIN LOGIN =================
+        if role == "admin":
 
-        cursor.execute(sql, values)
-        admin = cursor.fetchone()
+            cursor.execute(
+                "SELECT * FROM admin WHERE username=%s AND password=%s",
+                (username, password)
+            )
 
-        if admin:
-            return redirect(url_for('dashboard'))
+            user = cursor.fetchone()
+
+            if user:
+
+                # Save role in session
+                session["role"] = "admin"
+
+                return redirect(url_for("dashboard"))
+
+        # ================= TEACHER LOGIN =================
+        elif role == "teacher":
+
+            cursor.execute(
+                "SELECT * FROM teachers WHERE username=%s AND password=%s",
+                (username, password)
+            )
+
+            user = cursor.fetchone()
+
+            if user:
+
+                # Save role in session
+                session["role"] = "teacher"
+
+                return redirect(url_for("teacher_dashboard"))
+
+        return render_template(
+            "login.html",
+            error="Invalid Username or Password"
+        )
+
+    return render_template("login.html")
+
+# ===================== FORGOT PASSWORD =====================
+
+@app.route('/forgot_password', methods=['GET', 'POST'])
+def forgot_password():
+
+    if request.method == 'POST':
+
+        role = request.form['role']
+        username = request.form['username']
+        email = request.form['email']
+        new_password = request.form['new_password']
+
+        if role == "admin":
+
+            cursor.execute(
+                "SELECT * FROM admin WHERE username=%s AND email=%s",
+                (username, email)
+            )
+
+            user = cursor.fetchone()
+
+            if user:
+
+                cursor.execute(
+                    "UPDATE admin SET password=%s WHERE username=%s",
+                    (new_password, username)
+                )
+
+                db.commit()
+
+                return redirect(url_for('login'))
+
         else:
-            return render_template('login.html', error="Invalid Username or Password")
 
-    return render_template('login.html')
+            cursor.execute(
+                "SELECT * FROM teachers WHERE username=%s AND email=%s",
+                (username, email)
+            )
+
+            user = cursor.fetchone()
+
+            if user:
+
+                cursor.execute(
+                    "UPDATE teachers SET password=%s WHERE username=%s",
+                    (new_password, username)
+                )
+
+                db.commit()
+
+                return redirect(url_for('login'))
+
+        return render_template(
+            "forgot_password.html",
+            error="Invalid Username or Email"
+        )
+
+    return render_template("forgot_password.html")
 
 
 # ===================== DASHBOARD =====================
 
-# ---------------------- DASHBOARD ----------------------
 
 @app.route('/dashboard')
 def dashboard():
@@ -61,11 +148,33 @@ def dashboard():
         female_students=female_students,
         total_departments=total_departments
     )
+# ===================== Teacher Dashboard =====================
+@app.route('/teacher_dashboard')
+def teacher_dashboard():
+
+    cursor.execute("SELECT COUNT(*) AS total FROM students")
+    total_students = cursor.fetchone()['total']
+
+    cursor.execute("SELECT COUNT(*) AS male FROM students WHERE gender='Male'")
+    male_students = cursor.fetchone()['male']
+
+    cursor.execute("SELECT COUNT(*) AS female FROM students WHERE gender='Female'")
+    female_students = cursor.fetchone()['female']
+
+    return render_template(
+        "teacher_dashboard.html",
+        total_students=total_students,
+        male_students=male_students,
+        female_students=female_students
+    )
 
 # ===================== ADD STUDENT PAGE =====================
-
 @app.route('/add_student')
 def add_student():
+
+    if session.get("role") != "admin":
+        return redirect(url_for("teacher_dashboard"))
+
     return render_template('add_student.html')
 
 # ---------------------- EDIT STUDENT PAGE ----------------------
@@ -73,11 +182,16 @@ def add_student():
 @app.route('/edit_student/<student_id>')
 def edit_student(student_id):
 
+    if session.get("role") != "admin":
+        return redirect(url_for("students"))
+    
+
     sql = "SELECT * FROM students WHERE student_id=%s"
 
     cursor.execute(sql, (student_id,))
 
     student = cursor.fetchone()
+
 
     return render_template("edit_student.html", student=student)
 
@@ -90,7 +204,13 @@ def students():
     cursor.execute("SELECT * FROM students")
     students = cursor.fetchall()
 
-    return render_template("students.html", students=students)
+    role = session.get("role", "admin")
+
+    return render_template(
+        "students.html",
+        students=students,
+        role=role
+    )
 
 # ---------------------- UPDATE STUDENT ----------------------
 
@@ -136,6 +256,10 @@ def update_student():
 
 @app.route('/delete_student/<student_id>')
 def delete_student(student_id):
+
+    # Allow only admin
+    if session.get("role") != "admin":
+        return redirect(url_for("teacher_dashboard"))
 
     sql = "DELETE FROM students WHERE student_id=%s"
 
